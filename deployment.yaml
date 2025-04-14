@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: my-container2
-        image: xyz673/web-pic:v1
+        image: xyz673/flask-app:latest
         ports:
         - containerPort: 5000
 ---
