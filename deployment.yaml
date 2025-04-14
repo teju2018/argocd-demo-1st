@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-deploy2
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: my-pod2
+  template:
+    metadata:
+      labels:
+        app: my-pod2
+    spec:
+      containers:
+      - name: my-container2
+        image: xyz673/web-pic:v1
+        ports:
+        - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service-ld
+  labels:
+    app: my-pod2
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 5000
+    targetPort: 5000
+  selector:
+    app: my-pod2
