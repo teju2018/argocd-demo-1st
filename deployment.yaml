@@ -1,33 +1,37 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-deploy2
+  name: app1
+  labels:
+    app: frontend
 spec:
-  replicas: 5
+  replicas: 3  # Fixed typo
   selector:
     matchLabels:
-      app: my-pod2
+      app: frontend
   template:
     metadata:
       labels:
-        app: my-pod2
+        app: frontend
     spec:
       containers:
-      - name: my-container2
-        image: xyz673/web-pic:v1
-        ports:
-        - containerPort: 80
+        - name: app1
+          image: xyz673/dev-test1:4
+          ports:
+            - containerPort: 80  # Fixed key name
+
 ---
+
+
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-service-ld
-  labels:
-    app: my-pod2
+  name: frontend-service
 spec:
   type: LoadBalancer
-  ports:
-  - port: 80
-    targetPort: 80
   selector:
-    app: my-pod2
+    app: frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
